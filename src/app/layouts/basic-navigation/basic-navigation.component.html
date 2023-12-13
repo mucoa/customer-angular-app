@@ -1,0 +1,25 @@
+<ix-basic-navigation>
+    <div class="placeholder-logo" slot="logo">
+        <img src="assets\img\{{selectedTheme == 'theme-classic-light' ? 'logo-dark' : 'logo'}}.svg" height="20" />
+    </div>
+    <ix-menu>
+        <ix-menu-item tab-icon="home" [active]="getUrl() == '/home'" routerLink="/" home-tab>
+            Home
+        </ix-menu-item>
+        <ix-menu-item *ngIf="checkUserPermission('GetOrders')" tab-icon="shopping-cart" [active]="getUrl() == '/home/orders'" routerLink="/home/orders">
+            Orders
+        </ix-menu-item>
+        <ix-menu-item *ngIf="checkUserPermission('Admin')" tab-icon="user-management-filled" [active]="getUrl() == '/home/customers'" routerLink="/home/customers">
+            Customers
+        </ix-menu-item>
+        <ix-menu-item [bottom]="true" (click)="toggleMode()" tab-icon="light-dark" class="m-1" outline
+            variant="primary">
+            {{themesNames[themes.indexOf(selectedTheme) == 0 ? 1 : 0]}}
+        </ix-menu-item>
+        <ix-menu-item [bottom]="true" tab-icon="log-out" class="m-1" outline variant="primary"
+            (click)="this.logOut.emit()">
+            Log out
+        </ix-menu-item>
+    </ix-menu>
+    <div class="content"><router-outlet></router-outlet></div>
+</ix-basic-navigation>

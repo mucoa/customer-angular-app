@@ -1,0 +1,96 @@
+<ix-layout-grid class="d-flex">
+    <ix-row class="justify-content-center align-items-center">
+        <ix-col class="col-md-1">
+            <ix-icon-button class="m-1" icon="refresh" variant="primary" (click)="getCustomers()"></ix-icon-button>
+        </ix-col>
+        <ix-col class="col-md-7">
+            <ix-input-group>
+                <span slot="input-start">
+                    <ix-icon name="search" size="16"></ix-icon>
+                </span>
+                <input ng-init="verifyStart()" [(ngModel)]="customSearch" name="input" (keyup)="onKey($event)"
+                    id="input-string" type="string" placeholder="Search" />
+                <span slot="input-end">
+                    <ix-icon-button (click)="clearInput()" id="clear-button" icon="clear" ghost="{true}" size="16"
+                        [style.display]="display"></ix-icon-button>
+                </span>
+            </ix-input-group>
+        </ix-col>
+        <ix-col class="col-md-4">
+            <ix-button class="m-1" outline icon="add-user-filled" routerLink="/home/customers/add">
+                Add Customer
+            </ix-button>
+        </ix-col>
+    </ix-row>
+</ix-layout-grid>
+
+<ix-layout-grid class="d-flex">
+    <ix-row>
+        <ix-col>
+            <ix-spinner *ngIf="isLoading"></ix-spinner>
+        </ix-col>
+    </ix-row>
+</ix-layout-grid>
+
+<ix-layout-grid *ngIf="!isLoading" class="d-flex justify-content-center align-items-center">
+    <ix-row>
+        <ix-col>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Customer Id</th>
+                        <th scope="col">Identity</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Phone Number</th>
+                        <th scope="col">Email Address</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Birth Date</th>
+                        <th scope="col">Company</th>
+                        <th scope="col">Date</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of customerModel?.items">
+                        <td>
+                            {{item.id}}
+                        </td>
+                        <td>
+                            {{item.identity}}
+                        </td>
+                        <td>
+                            {{item.name}}
+                        </td>
+                        <td>
+                            {{item.phoneNumber}}
+                        </td>
+                        <td>
+                            {{item.emailAddress}}
+                        </td>
+                        <td>
+                            {{item.address}}
+                        </td>
+                        <td>
+                            {{item.birthDate | date:'dd/MM/yyyy HH:ss'}}
+                        </td>
+                        <td>
+                            {{item.company}}
+                        </td>
+                        <td>
+                            {{item.createdAt | date:'dd/MM/yyyy HH:ss'}}
+                        </td>
+                        <td>
+                            <ix-icon-button icon="pen-filled" variant="primary" [routerLink]="['/home/customers/edit', item.id]"></ix-icon-button>
+                        </td>
+                        <td>
+                            <ix-icon-button icon="trashcan-filled" (click)="deleteCustomer(item.id)" ></ix-icon-button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <ix-pagination (pageSelected)="onPageSelect($event)" [selectedPage]="page-1"
+                [count]="pageCount"></ix-pagination>
+        </ix-col>
+    </ix-row>
+</ix-layout-grid>

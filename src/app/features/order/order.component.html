@@ -1,0 +1,64 @@
+<ix-layout-grid class="d-flex">
+  <ix-row class="justify-content-center align-items-center">
+    <ix-col class="col-md-2">
+      <ix-icon-button class="m-1" icon="refresh" variant="primary" (click)="getOrders()"></ix-icon-button>
+    </ix-col>
+    <ix-col class="col-md-10">
+      <ix-input-group>
+        <span slot="input-start">
+          <ix-icon name="search" size="16"></ix-icon>
+        </span>
+        <input ng-init="verifyStart()" [(ngModel)]="customSearch" name="input" (keyup)="onKey($event)" id="input-string"
+          type="string" placeholder="Search" />
+        <span slot="input-end">
+          <ix-icon-button (click)="clearInput()" id="clear-button" icon="clear" ghost="{true}" size="16"
+            [style.display]="display"></ix-icon-button>
+        </span>
+      </ix-input-group>
+    </ix-col>
+  </ix-row>
+</ix-layout-grid>
+
+<ix-layout-grid class="d-flex">
+  <ix-row>
+    <ix-col>
+      <ix-spinner *ngIf="isLoading"></ix-spinner>
+    </ix-col>
+  </ix-row>
+</ix-layout-grid>
+
+<ix-layout-grid *ngIf="!isLoading" class="d-flex justify-content-center align-items-center">
+  <ix-col>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Order Number</th>
+          <th scope="col">Product</th>
+          <th scope="col">ProductPrice</th>
+          <th scope="col">Customer</th>
+          <th scope="col">Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of orderModel?.items">
+          <td>
+            {{item.orderNumber}}
+          </td>
+          <td>
+            {{item.product}}
+          </td>
+          <td>
+            {{item.price}}
+          </td>
+          <td>
+            {{item.customerName}}
+          </td>
+          <td>
+            {{item.date | date:'dd/MM/yyyy HH:ss' }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <ix-pagination (pageSelected)="onPageSelect($event)" [selectedPage]="page-1" [count]="pageCount"></ix-pagination>
+  </ix-col>
+</ix-layout-grid>

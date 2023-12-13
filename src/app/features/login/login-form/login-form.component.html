@@ -1,0 +1,54 @@
+<ix-layout-grid>
+    <ix-row>
+        <ix-col>
+            <ix-typography format="display-xxl">Sign in</ix-typography>
+        </ix-col>
+    </ix-row>
+    <ix-row class="mb-3">
+        <ix-col>
+            <ix-typography format="h2">Welcome to customer management application. 👋</ix-typography>
+        </ix-col>
+    </ix-row>
+    <ix-row>
+        <ix-col>
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="row g-3" no-validate>
+                <div class="row mb-3">
+                    <div class="col-md-8">
+                        <label htmlFor="validationEmail" class="form-label">
+                            Email Address
+                        </label>
+                        <input name="email" id="validationEmail" formControlName="email"
+                            [ngClass]="{'custom-invalid-input': email && email.invalid && (email.touched || email.dirty || submitted)}" />
+                        <div *ngIf="email && email.invalid && (email.touched || email.dirty || submitted)"
+                            class="custom-invalid-feedback">
+                            <div *ngIf="email.errors?.['required']">Email adress is required.</div>
+                            <div *ngIf="email.errors?.['email']">Please enter valid email address.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-md-8">
+                        <label htmlFor="validationPassword" class="form-label">
+                            Password
+                        </label>
+                        <input name="password" type="password" id="validationPassword" formControlName="password"
+                            [ngClass]="{'custom-invalid-input': password && password.invalid && (password.touched || password.dirty || submitted)}" />
+                        <div *ngIf="password && password.invalid && (password.touched || password.dirty || submitted)"
+                            class="custom-invalid-feedback">
+                            <div *ngIf="password.errors?.['required']">Password is required.</div>
+                            <div *ngIf="password.errors?.['minlength']">Password minimum length is 8.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 d-flex justify-content-end">
+                        <ix-button type="submit" [loading]="isLoading" icon="lock-key" class="m-1" outline
+                            variant="primary" [disabled]="submitted && loginForm.invalid">
+                            Sign in
+                        </ix-button>
+                    </div>
+                </div>
+            </form>
+        </ix-col>
+    </ix-row>
+</ix-layout-grid>
