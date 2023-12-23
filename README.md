@@ -1,3 +1,18 @@
+This project created for Siemens Case Study and it passed the interview, if you need something like that you can use this project.
+
+Features
+-Authentication
+-Routing(app and home)
+-Session (LocalStorage) 
+-Role based interface
+-Reactive form validation
+-Responsive and user friendly design
+-Siemens ix template 2.0.4
+-Jwt payload (expire and permission detection)
+-Orders(standart user and admin)
+-Customer(admin)
+-Add, Update, Delete
+
 # CustomerApp
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.6.
